@@ -1,0 +1,29 @@
+body {
+	background-color: #f1f1f1;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+.holder {
+	max-width: 640px;
+	background-color: #fff;
+	margin: 0 auto 2.5em;
+	padding: 0.2em 1.5em 2em;
+	border: 0.1em solid #ccc;
+	border-radius: 0.1em;
+}
+input {
+	padding: 0.2em;
+	font-size: 1.2em;
+	display: block;
+	width: auto;
+}
+label {
+	display: block;
+	cursor: pointer;
+	padding-bottom: 0.2em;
+	font-size: 1em;
+}
+button {
+	display: block;
+	margin-top: 0.6em;
+	font-size: 1.6em;
+}
