@@ -65,7 +65,7 @@ extract( $post_data );
 ?>
         <h1>Next Step</h1>
         <p>Create a new file on your server called <strong>config.php</strong> and copy and paste the following text:</p>
-        <textarea rows="15" cols="60">
+        <textarea rows="15" cols="60" onfocus="this.select();">
 <?php echo '<?php' . "\n"; // How meta! ?>
 define( 'INSTAGRAM_SCREEN_NAME', '<?php echo $instagram_screen_name; ?>' );
 
@@ -89,11 +89,7 @@ if ( ! empty( $missing_data ) ): ?>
             <label for="instagram-screen-name">Instagram Screen Name</label>
 			<input type="text" value="<?php echo $instagram_screen_name; ?>" name="instagram-screen-name" id="instagram-screen-name">
 
-			<h2>Create a Twitter app</h2>
-			<p>Go to <a href="https://apps.twitter.com/app/new" target="_blank">https://apps.twitter.com/app/new</a> and register a new app. Use the following info:</p>
-
-			<label for="twitter-website-url">Website URL</label>
-			<input type="text" readonly="true" value="<?php echo $root_url . '/'; ?>" id="twitter-website-url">
+			<p>Go to <a href="https://apps.twitter.com/app/new" target="_blank">https://apps.twitter.com/app/new</a> and register a new app.</p>
 
 			<p>Click on the <strong>Keys and Access Tokens</strong> tab. Copy the following application settings values:</p>
 
