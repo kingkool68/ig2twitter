@@ -12,9 +12,10 @@ body {
 }
 input {
 	padding: 0.2em;
+	margin-bottom: 1em;
 	font-size: 1.2em;
 	display: block;
-	width: auto;
+	width: 98%;
 }
 label {
 	display: block;
@@ -24,6 +25,7 @@ label {
 }
 button {
 	display: block;
+	cursor: pointer;
 	margin-top: 0.6em;
 	font-size: 1.6em;
 }
