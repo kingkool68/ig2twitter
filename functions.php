@@ -61,6 +61,7 @@ function tweet_media( $media ) {
     $scraper = new Instagram_Scraper();
 
     // TODO: Differentiate between pictures and video...
+    // SEE: http://stackoverflow.com/questions/32231642/uploading-videos-to-twitter-using-api
 	$id = $media->id;
 	$caption = $media->caption;
     $instagram_url = $scraper->get_permalink( $media->code );
