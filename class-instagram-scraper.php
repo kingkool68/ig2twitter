@@ -39,6 +39,22 @@ class Instagram_Scraper {
 
 		return false;
 	}
+
+	public function get_media( $code = '' ) {
+		if ( ! $code ) {
+			return false;
+		}
+
+		$url = $this->get_permalink( $code );
+		$json = $this->get_json_payload( $url );
+
+		if ( isset( $json->entry_data->PostPage[0]->media ) ) {
+			return $json->entry_data->PostPage[0]->media;
+		}
+
+		return false;
+	}
+
 	public function get_user( $username = '' ) {
 		$url = $this->INSTAGRAM_URL . '/' . $username . '/';
 		$json = $this->get_json_payload( $url );
