@@ -52,6 +52,10 @@ class Instagram_Scraper {
 			return $json->entry_data->PostPage[0]->media;
 		}
 
+		if ( isset( $json->entry_data->PostPage[0]->graphql->shortcode_media ) ) {
+			return $json->entry_data->PostPage[0]->graphql->shortcode_media;
+		}
+
 		return false;
 	}
 
