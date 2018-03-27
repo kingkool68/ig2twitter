@@ -31,37 +31,37 @@ function truncate( $text, $chars = 140 ) {
 
 function get_history() {
 
-    $filename = 'HISTORY';
-    if ( ! file_exists( $filename ) ) {
+	$filename = 'HISTORY';
+	if ( ! file_exists( $filename ) ) {
 		$scraper = new Instagram_Scraper();
 		$media = $scraper->get_user_media( INSTAGRAM_SCREEN_NAME );
 		$media_item = $media[0];
 		$history = array();
 		$history[ $media_item->id ] = $media_item->date;
-    	file_put_contents( $filename, serialize( $history ) );
-    }
-    $data = unserialize( file_get_contents( $filename ) );
-    if ( ! is_array( $data ) ) {
-    	$data = array();
-    }
+		file_put_contents( $filename, serialize( $history ) );
+	}
+	$data = unserialize( file_get_contents( $filename ) );
+	if ( ! is_array( $data ) ) {
+		$data = array();
+	}
 
-    return $data;
+	return $data;
 }
 
 function save_history( $data = array() ) {
-    if ( ! is_array( $data ) ) {
-        $data = array();
-    }
-    $filename = 'HISTORY';
-    file_put_contents( $filename, serialize( $data ) );
+	if ( ! is_array( $data ) ) {
+		$data = array();
+	}
+	$filename = 'HISTORY';
+	file_put_contents( $filename, serialize( $data ) );
 }
 
 function tweet_media( $media ) {
-    $client = new Client();
-    $scraper = new Instagram_Scraper();
+	$client = new Client();
+	$scraper = new Instagram_Scraper();
 
-	$caption = $media->caption;
-    $instagram_url = $scraper->get_permalink( $media->code );
+	$caption = $media->edge_media_to_caption->edges[0]->node->text;
+	$instagram_url = $scraper->get_permalink( $media->shortcode );
 	$is_video = $media->is_video;
 	if ( $is_video ) {
 		$twitter_media = tweet_video( $media );
@@ -85,7 +85,7 @@ function tweet_media( $media ) {
 	$status .= ' ' . $instagram_url;
 
 	$args = array(
-    	'status' => $status,
+		'status' => $status,
 	);
 	if ( isset( $twitter_media->media_id_string ) ) {
 		$args['media_ids'] = $twitter_media->media_id_string;
@@ -98,14 +98,14 @@ function tweet_media( $media ) {
 	$tweet_user = $result->user->screen_name;
 	$tweet_url = 'https://twitter.com/' . $tweet_user . '/status/' . $tweet_id . '/';
 
-    $output = array(
-        'success' => true,
-        'tweet_id' => $tweet_id,
-        'tweet_user' => $tweet_user,
-        'tweet_url' => $tweet_url,
-    );
+	$output = array(
+		'success' => true,
+		'tweet_id' => $tweet_id,
+		'tweet_user' => $tweet_user,
+		'tweet_url' => $tweet_url,
+	);
 
-    return $output;
+	return $output;
 }
 
 function tweet_picture( $media ) {
@@ -113,7 +113,7 @@ function tweet_picture( $media ) {
 	$scraper = new Instagram_Scraper();
 
 	$id = $media->id;
-	$src = $media->display_src;
+	$src = $media->display_url;
 	$img = $client->get( $src );
 	$img_body = $img->getBody();
 	file_put_contents ( $id . '.jpg', $img_body );
@@ -135,7 +135,7 @@ function tweet_video( $media ) {
 	$client = new Client();
 	$scraper = new Instagram_Scraper();
 	$id = $media->id;
-	$single_media = $scraper->get_media( $media->code );
+	$single_media = $scraper->get_media( $media->shortcode );
 	$src = $single_media->video_url;
 	$video = $client->get( $src );
 	$video_body = $video->getBody();

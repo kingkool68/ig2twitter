@@ -19,22 +19,22 @@ $scraper = new Instagram_Scraper();
 $media = $scraper->get_user_media( INSTAGRAM_SCREEN_NAME );
 $media_to_tweet = array();
 foreach ( $media as $item ) {
-	if ( isset( $history[ $item->id ] ) ) {
+	if ( isset( $history[ $item->node->id ] ) ) {
 		break;
 	}
-	$media_to_tweet[] = $item;
+	$media_to_tweet[] = $item->node;
 }
 // The items from Instagram go from most recent to least recent, we need to do the reverse order when we tweet them.
 $media_to_tweet = array_reverse( $media_to_tweet );
 foreach( $media_to_tweet as $item ) {
 	$result = tweet_media( $item );
 	if ( $result['success'] ) {
-		$history[ $item->id ] = $item->date;
+		$history[ $item->id ] = $item->taken_at_timestamp;
 
-		echo '<a href="' . $scraper->get_permalink( $item->code ) . '" target="_blank">';
+		echo '<a href="' . $scraper->get_permalink( $item->shortcode ) . '" target="_blank">';
 		echo '<img src="' . $item->thumbnail_src . '" width="320">';
 		echo '</a>';
-		echo '<p>' . $item->caption . '</p>';
+		echo '<p>' . $item->$media->edge_media_to_caption->edges[0]->node->text . '</p>';
 		echo '<hr>';
 	}
 }

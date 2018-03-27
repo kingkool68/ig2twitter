@@ -37,6 +37,10 @@ class Instagram_Scraper {
 			return $json->entry_data->ProfilePage[0]->user->media->nodes;
 		}
 
+		if ( isset( $json->entry_data->ProfilePage[0]->graphql->user->edge_owner_to_timeline_media->edges ) ) {
+			return $json->entry_data->ProfilePage[0]->graphql->user->edge_owner_to_timeline_media->edges;
+		}
+
 		return false;
 	}
 
