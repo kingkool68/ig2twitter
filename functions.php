@@ -21,7 +21,7 @@ function get_root_url() {
 	return rtrim( $url, '/' );
 }
 
-function truncate( $text, $chars = 140 ) {
+function truncate( $text, $chars = 280 ) {
 	$text = $text . ' ';
 	$text = substr( $text, 0, $chars );
 	$text = substr( $text, 0, strrpos( $text, ' ' ) );
@@ -79,7 +79,7 @@ function tweet_media( $media ) {
 	// Figure out the maximum length our tweet text can be using URL length variables from https://api.twitter.com/1.1/help/configuration
 	$short_url_length = 23;
 	$media_length = 24;
-	$text_limit = 140 - $media_length - $short_url_length;
+	$text_limit = 280 - $media_length - $short_url_length;
 
 	$status = truncate( $caption, $text_limit );
 	$status .= ' ' . $instagram_url;
