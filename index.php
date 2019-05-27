@@ -30,7 +30,7 @@ foreach( $media_to_tweet as $item ) {
 	$result = tweet_media( $item );
 	if ( $result['success'] ) {
 		$history[ $item->id ] = $item->taken_at_timestamp;
-
+		save_history( $history );
 		echo '<a href="' . $scraper->get_permalink( $item->shortcode ) . '" target="_blank">';
 		echo '<img src="' . $item->thumbnail_src . '" width="320">';
 		echo '</a>';
@@ -38,8 +38,6 @@ foreach( $media_to_tweet as $item ) {
 		echo '<hr>';
 	}
 }
-
-save_history( $history );
 
 die();
 
