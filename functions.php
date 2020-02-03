@@ -94,18 +94,27 @@ function tweet_media( $media ) {
 	$connection = new TwitterOAuth( TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_SECRET );
 	// Post the tweet to Twitter
 	$result = $connection->post( 'statuses/update', $args );
-	$tweet_id = $result->id_str;
-	$tweet_user = $result->user->screen_name;
-	$tweet_url = 'https://twitter.com/' . $tweet_user . '/status/' . $tweet_id . '/';
+	$tweet_id = 0;
+	if ( ! empty( $result->id_str ) ) {
+		$tweet_id = $result->id_str;
+	}
 
-	$output = array(
+	$tweet_user = '';
+	if ( ! empty( $result->user->screen_name ) ) {
+		$tweet_user = $result->user->screen_name;
+	}
+
+	$tweet_url = '';
+	if ( ! empty( $tweet_user ) && ! empty( $tweet_id ) ) {
+		$tweet_url = 'https://twitter.com/' . $tweet_user . '/status/' . $tweet_id . '/';
+	}
+
+	return array(
 		'success' => true,
 		'tweet_id' => $tweet_id,
 		'tweet_user' => $tweet_user,
 		'tweet_url' => $tweet_url,
 	);
-
-	return $output;
 }
 
 function tweet_picture( $media ) {
