@@ -34,7 +34,7 @@ foreach( $media_to_tweet as $item ) {
 		echo '<a href="' . $scraper->get_permalink( $item->shortcode ) . '" target="_blank">';
 		echo '<img src="' . $item->thumbnail_src . '" width="320">';
 		echo '</a>';
-		echo '<p>' . $item->$media->edge_media_to_caption->edges[0]->node->text . '</p>';
+		echo '<p>' . $item->edge_media_to_caption->edges[0]->node->text . '</p>';
 		echo '<hr>';
 	}
 }
