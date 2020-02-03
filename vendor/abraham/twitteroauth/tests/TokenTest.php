@@ -4,7 +4,8 @@ namespace Abraham\TwitterOAuth\Tests;
 
 use Abraham\TwitterOAuth\Token;
 
-class TokenTest extends \PHPUnit_Framework_TestCase {
+class TokenTest extends \PHPUnit_Framework_TestCase
+{
     /**
      * @dataProvider tokenProvider
      */
@@ -17,10 +18,10 @@ class TokenTest extends \PHPUnit_Framework_TestCase {
 
     public function tokenProvider()
     {
-        return array(
-            array('oauth_token=key&oauth_token_secret=secret', 'key', 'secret'),
-            array('oauth_token=key%2Bkey&oauth_token_secret=secret', 'key+key', 'secret'),
-            array('oauth_token=key~key&oauth_token_secret=secret', 'key~key', 'secret'),
-        );
+        return [
+            ['oauth_token=key&oauth_token_secret=secret', 'key', 'secret'],
+            ['oauth_token=key%2Bkey&oauth_token_secret=secret', 'key+key', 'secret'],
+            ['oauth_token=key~key&oauth_token_secret=secret', 'key~key', 'secret'],
+        ];
     }
 }
